@@ -1,6 +1,3 @@
-tsx
-// Node.tsx
-
 import { motion } from "framer-motion";
 import { NodeData } from "./NodesData";
 
@@ -16,7 +13,10 @@ const Node: React.FC<NodeProps> = ({ node }) => {
         backgroundColor: node.theme.backgroundColor,
         color: node.theme.textColor,
       }}
-      initial={{ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight }}
+      initial={{
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+      }}
       animate={{
         x: [Math.random() * window.innerWidth],
         y: [Math.random() * window.innerHeight],
