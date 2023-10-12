@@ -1,5 +1,6 @@
 type Noot = {
   type: string;
+  url: string;
   preview: string;
   avatar_url: string;
   banner_url: string;
