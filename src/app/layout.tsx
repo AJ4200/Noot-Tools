@@ -1,6 +1,7 @@
 import './globals.css'
 import './styles/bg.css'
 import './styles/centerpiece.css'
+import './styles/noot.css'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
