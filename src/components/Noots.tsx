@@ -4,7 +4,7 @@ import noots from "../data/Data";
 
 const Noots: React.FC = () => {
   return (
-    <div>
+    <div className="noot-wrap flex">
       {noots.map((noot) => (
         <Noot
           key={noot.name}

@@ -27,6 +27,7 @@ figure {
   animation:wobble 20s ease-in-out infinite;
   transform-origin:center center;
   transform-style:preserve-3d;
+  z-index: -9999;
 }
 
 @keyframes wobble {

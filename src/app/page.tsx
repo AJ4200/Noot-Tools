@@ -7,7 +7,7 @@ import Noots from "@/components/Noots";
 const Home = () => {
   return (
     <>
-      <CenterPiece />
+<CenterPiece/>
       <Background />
       <Noots/>
       <Footer />
