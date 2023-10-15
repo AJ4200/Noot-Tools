@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from "react";
 
 type NootProps = {
@@ -29,6 +29,9 @@ const Noot: React.FC<NootProps> = ({
   const [velocity, setVelocity] = useState({ x: (Math.random() - 0.5) * 2, y: (Math.random() - 0.5) * 2 });
   const [position, setPosition] = useState({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight });
 
+  // Add a timer state
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
   const handleHover = () => {
     setShowPreview(true);
   };
@@ -41,34 +44,42 @@ const Noot: React.FC<NootProps> = ({
     setShowContent(!showContent);
   };
 
-useEffect(() => {
-  const handleAnimation = () => {
-    if (!showContent) {
-      setPosition((prevPosition) => {
-        const newPosition = {
-          x: prevPosition.x + velocity.x,
-          y: prevPosition.y + velocity.y,
-        };
+  useEffect(() => {
+    const handleAnimation = () => {
+      if (!showContent) {
+        setPosition((prevPosition) => {
+          let newPosition = {
+            x: prevPosition.x + velocity.x,
+            y: prevPosition.y + velocity.y,
+          };
 
-        // Bounce off the walls
-        if (newPosition.x >= window.innerWidth || newPosition.x <= 0) {
-          setVelocity((prevVelocity) => ({ ...prevVelocity, x: -prevVelocity.x }));
-        }
+          // Bounce off the walls
+          if (newPosition.x >= window.innerWidth || newPosition.x <= 0) {
+            setVelocity((prevVelocity) => ({ ...prevVelocity, x: -prevVelocity.x }));
+            newPosition.x = newPosition.x >= window.innerWidth ? window.innerWidth : 0;
+          }
 
-        if (newPosition.y >= window.innerHeight || newPosition.y <= 0) {
-          setVelocity((prevVelocity) => ({ ...prevVelocity, y: -prevVelocity.y }));
-        }
+          if (newPosition.y >= window.innerHeight || newPosition.y <= 0) {
+            setVelocity((prevVelocity) => ({ ...prevVelocity, y: -prevVelocity.y }));
+            newPosition.y = newPosition.y >= window.innerHeight ? window.innerHeight : 0;
+          }
 
-        return newPosition;
-      });
-    }
-  };
+          return newPosition;
+        });
+      }
+    };
 
-  const animationFrame = requestAnimationFrame(handleAnimation);
+    // Set up the interval timer
+    const intervalId = setInterval(handleAnimation, 100);
+    setTimer(intervalId);
 
-  return () => cancelAnimationFrame(animationFrame);
-}, [velocity, showContent]);
-
+    return () => {
+      // Clear the interval when the component unmounts
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
+  }, [velocity, showContent, timer]); // Include timer in the dependency array
 
   return (
     <div

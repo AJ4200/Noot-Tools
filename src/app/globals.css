@@ -51,7 +51,7 @@ body {
 
 /* Apply animation to all xs */
 .x1, .x2, .x3, .x4, .x5, .x6, .x7, .x8, .x9, .x10 {
-
+  position: absolute;
 }
 .ball {
   background: linear-gradient(145deg, #fff 0%, #dbdbdb 30%, #757575 85%);
